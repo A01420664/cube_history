@@ -1,0 +1,193 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cube History</title>
+</head>
+<style>
+	#primary_nav_wrap{
+		margin-top:15px
+	}
+
+	#primary_nav_wrap ul{
+		list-style:none;
+		position:relative;
+		float:left;
+		margin:0;
+		padding:0
+	}
+
+	#primary_nav_wrap ul a {
+		display:block;
+		color:#333;
+		text-decoration:none;
+		font-weight:700;
+		font-size:12px;
+		line-height:32px;
+		padding:0 15px;
+		font-family:"HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif
+	}
+
+	#primary_nav_wrap ul li {
+		position:relative;
+		float:left;
+		margin:0;
+		padding:0
+	}
+
+	#primary_nav_wrap ul li.current-menu-item{
+		background:#ddd
+	}
+
+	#primary_nav_wrap ul li:hover {
+		background:#f6f6f6
+	}
+
+	#primary_nav_wrap ul ul {
+		display:none;
+		position:absolute;
+		top:100%;
+		left:0;
+		background:#fff;
+		padding:0
+	}
+
+	#primary_nav_wrap ul ul li {
+		float:none;
+		width:200px
+	}
+
+	#primary_nav_wrap ul ul a {
+		line-height:120%;
+		padding:10px 15px
+	}
+
+	#primary_nav_wrap ul ul ul {
+		top:0;
+		left:100%
+	}
+
+	#primary_nav_wrap ul li:hover > ul {
+		display:block
+	}
+</style>
+<body>
+</body>
+	<nav id="primary_nav_wrap">
+		<ul>
+		  <li><a>Move X</a>
+		    <ul>
+		      <li id="moveX1"><a> + </a></li>
+		      <li id="moveX2"><a> - </a></li>
+		    </ul>
+		  </li>
+
+		  <li><a>Move Y</a>
+		    <ul>
+		      <li id="moveY1"><a> + </a></li>
+		      <li id="moveY2"><a> - </a></li>
+		    </ul>
+		  </li>
+
+		  <li><a>Move Z</a>
+		    <ul>
+		      <li id="moveZ1"><a> + </a></li>
+		      <li id="moveZ2"><a> - </a></li>
+		    </ul>
+		  </li>
+		</ul>
+	</nav>
+
+	<script src="{% static 'timeline/libraries/three.js'%}"></script>
+	
+	<script>
+		document.getElementById("moveX1").onclick = function() {
+			animate(1)
+		};
+
+		document.getElementById("moveX2").onclick = function() {
+			animate(2)
+		};
+
+		document.getElementById("moveY1").onclick = function() {
+			animate(3)
+		};
+
+		document.getElementById("moveY2").onclick = function() {
+			animate(4)
+		};
+
+		document.getElementById("moveZ1").onclick = function() {
+			animate(5)
+		};
+
+		document.getElementById("moveZ2").onclick = function() {
+			animate(6)
+		};
+
+		var scene = new THREE.Scene();
+		var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+
+		var renderer = new THREE.WebGLRenderer();
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		document.body.appendChild( renderer.domElement );
+
+		var colorBox = new THREE.Color("rgb(155, 194, 207)");
+		var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+		var material = new THREE.MeshBasicMaterial( { color: colorBox } );
+		var cube = new THREE.Mesh( geometry, material );
+		scene.add( cube );
+
+		camera.position.z = 5;
+
+        //FUNCIONES DE POSICION X + -
+        var moveX1 = function (){
+	        cube.position.x += 0.1;
+        }
+
+        var moveX2 = function (){
+	        cube.position.x -= 0.1;
+        }
+
+        var moveY1 = function (){
+        	cube.position.y += 0.1;
+        }
+
+        var moveY2 = function (){
+        	cube.position.y -= 0.1;
+        }
+
+         var moveZ1 = function (){
+         	cube.position.z += 0.1;
+        }
+
+        var moveZ2 = function (){
+        	cube.position.z -= 0.1;
+        }
+
+		
+		var animate = function (action) {
+			requestAnimationFrame( animate );
+
+			switch(action){
+				case 1:
+					moveX1();	break;
+				case 2:
+					moveX2();	break;
+				case 3:
+					moveY1();	break;
+				case 4:
+					moveY2();	break;
+				case 5:
+					moveZ1();	break;
+				case 6:
+					moveZ2();	break;
+			}
+
+			renderer.render(scene, camera);
+		};
+
+		animate(0);
+	</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<h3> America </h3>
+{% if eventos_america %}
+{% for america in eventos_america %}
+	<p> {{ america.titulo }}</p>
+{% endfor %}
+{% else %}
+	<p> No hay eventos en AMERICA </p>
+{% endif %}
+
+<h3> Africa </h3>
+{% if eventos_africa %}
+{% for africa in eventos_africa %}
+	<p> {{ africa.titulo }}</p>
+{% endfor %}
+{% else %}
+	<p> No hay eventos en AFRICA </p>
+{% endif %}
